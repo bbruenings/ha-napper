@@ -129,12 +129,13 @@ class TestNapScheduleMatching:
 
     def test_match_within_threshold_merges_schedule_data(self):
         coord = make_coordinator()
-        nap_log = {
-            "id": "nap1",
-            "category": "NAP",
-            "isOpen": True,
-            "start": "2026-10-01T10:46:17.127+02:00",
-        }
+        from homeassistant.util import dt as dt_util
+
+        local_tz = dt_util.now().tzinfo
+        # Nap start expressed in the *runner's* local time (CI is UTC, hosts may not be)
+        nap_start = dt_util.now().replace(hour=10, minute=46, second=17, microsecond=127000)
+        nap_log = {"id": "nap1", "category": "NAP", "isOpen": True,
+                   "start": nap_start.isoformat()}
         schedule_items = [
             {"type": "NAP", "time": "2026-10-01T10:57:00.000", "duration": 90, "napNumber": 2},
             {"type": "NAP", "time": "2026-10-01T14:00:00.000", "duration": 60, "napNumber": 3},
@@ -148,9 +149,14 @@ class TestNapScheduleMatching:
 
     def test_no_match_beyond_threshold_returns_log_unchanged(self):
         coord = make_coordinator()
-        nap_log = {"id": "nap1", "start": "2026-10-01T10:46:17.127+02:00"}
+        from homeassistant.util import dt as dt_util
+
+        # Nap start in the runner's local time; schedule item is 4 hours later
+        nap_start = dt_util.now().replace(hour=10, minute=46, second=17, microsecond=127000)
+        nap_log = {"id": "nap1", "start": nap_start.isoformat()}
         schedule_items = [{"type": "NAP", "time": "2026-10-01T15:00:00.000", "duration": 60}]
         merged = coord._match_nap_with_schedule(nap_log, schedule_items)
+        # 10:46 vs 15:00 = 4h14m apart in local interpretation -> beyond 30 min
         assert merged is nap_log
         assert "scheduled_duration" not in merged
 
@@ -165,10 +171,11 @@ class TestNapScheduleMatching:
         from homeassistant.util import dt as dt_util
 
         local_tz = dt_util.now().tzinfo
-        # Schedule exactly at nap start in local time
-        nap_local = "2026-10-01T10:46:17.127"
-        nap_log = {"id": "nap1", "start": nap_local + "+02:00"}
-        schedule_items = [{"type": "NAP", "time": nap_local, "duration": 45}]
+        # Schedule time exactly equals the nap start in the runner's local time
+        nap_start = dt_util.now().replace(hour=10, minute=46, second=17, microsecond=127000)
+        naive = nap_start.replace(tzinfo=None).isoformat()
+        nap_log = {"id": "nap1", "start": nap_start.isoformat()}
+        schedule_items = [{"type": "NAP", "time": naive, "duration": 45}]
         merged = coord._match_nap_with_schedule(nap_log, schedule_items)
         assert merged["scheduled_duration"] == 45  # would fail if naive != aware offset
         assert local_tz is not None
