@@ -1,0 +1,191 @@
+log_diaper_change:
+  name: Log Diaper Change
+  description: Log a diaper change event to Napper
+  fields:
+    diaper_content:
+      name: Diaper Content
+      description: Type of diaper content
+      required: true
+      selector:
+        select:
+          options:
+            - label: Wet
+              value: WET
+            - label: Mixed
+              value: MIXED
+            - label: Poop
+              value: POOP
+    comment:
+      name: Comment
+      description: Optional note about the diaper change
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When the diaper change occurred (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_solids:
+  name: Log Solid Food
+  description: Log a solid food feeding event to Napper
+  fields:
+    comment:
+      name: Comment
+      description: Optional note about the feeding
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When the feeding occurred (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_solid_food:
+  name: Log Solid Food (Alias)
+  description: Alias for log_solids - Log a solid food feeding event to Napper
+  fields:
+    comment:
+      name: Comment
+      description: Optional note about the feeding
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When the feeding occurred (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_sleep_start:
+  name: Log Sleep Start
+  description: Log when baby starts sleeping/napping
+  fields:
+    comment:
+      name: Comment
+      description: Optional note about the sleep
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When sleep started (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_sleep_end:
+  name: Log Sleep End
+  description: Log when baby wakes up from sleep/nap. Can either close an existing nap log or create a wake up event.
+  fields:
+    log_id:
+      name: Log ID
+      description: ID of the nap log to close, or "current" to close the currently open nap. If not provided, creates a new wake up event.
+      required: false
+      selector:
+        text:
+    comment:
+      name: Comment
+      description: Optional note about waking up
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When baby woke up (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_wake_up:
+  name: Log Wake Up
+  description: Log a wake up event
+  fields:
+    comment:
+      name: Comment
+      description: Optional note about waking up
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When baby woke up (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_bedtime:
+  name: Log Bedtime
+  description: Log bedtime event
+  fields:
+    comment:
+      name: Comment
+      description: Optional note about bedtime
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When bedtime occurred (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+log_nursing:
+  name: Log Nursing
+  description: Log a nursing session
+  fields:
+    comment:
+      name: Comment
+      description: Optional note about the nursing session
+      required: false
+      selector:
+        text:
+    timestamp:
+      name: Timestamp
+      description: When nursing occurred (ISO 8601 format, optional)
+      required: false
+      selector:
+        text:
+
+delete_log:
+  name: Delete Log
+  description: Delete a log entry from Napper
+  fields:
+    log_id:
+      name: Log ID
+      description: ID of the log to delete
+      required: true
+      selector:
+        text:
+
+get_logs:
+  name: Get Logs
+  description: Retrieve logs from Napper, optionally filtered by category
+  fields:
+    category:
+      name: Category
+      description: Filter by log category (optional)
+      required: false
+      selector:
+        select:
+          options:
+            - label: All
+              value: ""
+            - label: Nap
+              value: NAP
+            - label: Diaper Change
+              value: CHANGED_DIAPER
+            - label: Solids
+              value: SOLIDS
+            - label: Bed Time
+              value: BED_TIME
+            - label: Woke Up
+              value: WOKE_UP
+            - label: Nursing
+              value: NURSING

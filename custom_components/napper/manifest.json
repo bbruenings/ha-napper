@@ -1,0 +1,16 @@
+{
+  "domain": "napper",
+  "name": "Napper Baby Tracking",
+  "codeowners": [
+    "@bbruenings"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/bbruenings/ha-napper",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/bbruenings/ha-napper/issues",
+  "requirements": [
+    "aiohttp"
+  ],
+  "version": "1.0.0"
+}\n

@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    name: python syntax + json/yaml checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile all Python files
+        run: python -m py_compile custom_components/napper/*.py
+      - name: Validate JSON files
+        run: |
+          python -c "import json; json.load(open('custom_components/napper/manifest.json'))"
+          python -c "import json; json.load(open('custom_components/napper/strings.json'))"
+          python -c "import json; json.load(open('hacs.json'))"
+      - name: Validate YAML files
+        run: |
+          pip install pyyaml
+          python -c "import yaml; yaml.safe_load(open('custom_components/napper/services.yaml'))"
+          python -c "import yaml; yaml.safe_load(open('.github/workflows/validate.yml'))"

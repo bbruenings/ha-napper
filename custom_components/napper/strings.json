@@ -1,0 +1,120 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Napper Login",
+        "description": "Enter your email address to receive a one-time password (OTP) code.",
+        "data": {
+          "email": "Email Address"
+        }
+      },
+      "otp": {
+        "title": "Enter OTP Code",
+        "description": "We've sent a verification code to {email}. Please enter the 6-digit code from your email.",
+        "data": {
+          "otp": "OTP Code"
+        }
+      },
+      "baby": {
+        "title": "Select Baby",
+        "description": "Choose which baby to monitor from your Napper account.",
+        "data": {
+          "baby_id": "Baby"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate Napper",
+        "description": "Send a new one-time password to {email} and sign in again."
+      }
+    },
+    "error": {
+      "invalid_email": "Invalid email address format",
+      "email_required": "Email address is required",
+      "otp_required": "OTP code is required",
+      "invalid_otp": "Invalid OTP code. Please check your email and try again.",
+      "otp_expired": "OTP code has expired. Please request a new one.",
+      "invalid_token": "Authentication failed. Please try again.",
+      "baby_not_found": "No babies found for this account",
+      "baby_required": "Please select a baby to monitor",
+      "connection_error": "Failed to connect to Napper API",
+      "timeout": "Connection timed out. Please try again.",
+      "unknown": "Unknown error occurred"
+    },
+    "abort": {
+      "already_configured": "Napper is already configured for this account",
+      "no_babies": "No babies found in your Napper account",
+      "auth_failed": "Authentication failed. Please start over.",
+      "reauth_successful": "Napper was reauthenticated successfully."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Napper Options",
+        "data": {
+          "baby_name": "Baby Name"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_diaper_change": {
+        "name": "Last Diaper Change"
+      },
+      "last_diaper_content": {
+        "name": "Last Diaper Content"
+      },
+      "last_wet_diaper": {
+        "name": "Last Wet Diaper"
+      },
+      "last_dry_diaper": {
+        "name": "Last Dry Diaper"
+      },
+      "last_mixed_diaper": {
+        "name": "Last Mixed Diaper"
+      },
+      "last_dirty_diaper": {
+        "name": "Last Dirty Diaper"
+      },
+      "last_solids": {
+        "name": "Last Solid Food"
+      },
+      "last_wake_up": {
+        "name": "Last Wake Up"
+      },
+      "last_bedtime": {
+        "name": "Last Bedtime"
+      },
+      "next_nap": {
+        "name": "Next Nap"
+      },
+      "next_bedtime": {
+        "name": "Next Bedtime"
+      },
+      "current_nap": {
+        "name": "Current Nap",
+        "state_attributes": {
+          "expected_duration_minutes": {
+            "name": "Expected Duration"
+          },
+          "expected_end_time": {
+            "name": "Expected End Time"
+          },
+          "current_duration_minutes": {
+            "name": "Current Duration"
+          }
+        }
+      },
+      "nap_expected_duration": {
+        "name": "Nap Expected Duration"
+      },
+      "nap_expected_end_time": {
+        "name": "Nap Expected End Time"
+      },
+      "bedtime_expected_time": {
+        "name": "Bedtime Expected Time"
+      }
+    }
+  }
+}
