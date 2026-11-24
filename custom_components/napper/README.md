@@ -160,7 +160,7 @@ The Napper integration uses a secure OTP (One-Time Password) authentication flow
 Log a diaper change event.
 
 **Fields:**
-- `diaper_content` (required): WET, MIXED, or POOP
+- `diaper_content` (required): WET, MIXED, or DIRTY (legacy POOP is an alias for DIRTY)
 - `comment` (optional): Note about the change
 - `timestamp` (optional): ISO 8601 timestamp
 

@@ -33,7 +33,8 @@ LOG_CATEGORY_MEDICINE = "MEDICINE"
 # Diaper content types
 DIAPER_WET = "WET"
 DIAPER_MIXED = "MIXED"
-DIAPER_POOP = "POOP"
+DIAPER_DIRTY = "DIRTY"
+DIAPER_POOP = "POOP"  # Legacy input value
 
 # Config entry keys
 CONF_BABY_ID = "baby_id"

@@ -179,3 +179,23 @@ class TestNapScheduleMatching:
         merged = coord._match_nap_with_schedule(nap_log, schedule_items)
         assert merged["scheduled_duration"] == 45  # would fail if naive != aware offset
         assert local_tz is not None
+
+@pytest.mark.parametrize("content", ["DIRTY", "POOP"])
+def test_last_dirty_diaper_accepts_both_values(content):
+    log = {"category": "CHANGED_DIAPER", "diaperContent": content,
+           "createdAt": "2026-10-01T09:00:00"}
+    result = make_coordinator()._parse_api_response({"logs": [log], "scheduleItems": []})
+    assert result["last_dirty_diaper"] == log
+
+
+@pytest.mark.parametrize("newer", ["DIRTY", "POOP"])
+def test_newest_dirty_diaper_wins_across_values(newer):
+    older = "POOP" if newer == "DIRTY" else "DIRTY"
+    logs = [
+        {"category": "CHANGED_DIAPER", "diaperContent": older,
+         "createdAt": "2026-10-01T09:00:00"},
+        {"category": "CHANGED_DIAPER", "diaperContent": newer,
+         "createdAt": "2026-10-01T10:00:00"},
+    ]
+    result = make_coordinator()._parse_api_response({"logs": logs, "scheduleItems": []})
+    assert result["last_dirty_diaper"] == logs[1]

@@ -32,6 +32,9 @@ if _STUB:
     # --- homeassistant.core --------------------------------------------------
     core = _module("homeassistant.core")
     core.HomeAssistant = type("HomeAssistant", (), {})
+    core.ServiceCall = type("ServiceCall", (), {})
+    core.ServiceResponse = dict
+    core.SupportsResponse = types.SimpleNamespace(OPTIONAL="optional", ONLY="only")
     core.callback = lambda fn: fn
     ha.core = core
 
@@ -141,6 +144,9 @@ class _CompletedStub:
     # --- homeassistant.helpers.* ---------------------------------------------
     helpers = _module("homeassistant.helpers")
     ha.helpers = helpers
+    typing_mod = _module("homeassistant.helpers.typing")
+    typing_mod.ConfigType = dict
+    helpers.typing = typing_mod
 
     uc = _module("homeassistant.helpers.update_coordinator")
 

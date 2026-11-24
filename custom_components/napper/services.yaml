@@ -13,8 +13,8 @@ log_diaper_change:
               value: WET
             - label: Mixed
               value: MIXED
-            - label: Poop
-              value: POOP
+            - label: Dirty
+              value: DIRTY
     comment:
       name: Comment
       description: Optional note about the diaper change
