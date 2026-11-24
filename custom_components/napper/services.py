@@ -30,6 +30,7 @@ from .const import (
     DIAPER_WET,
     DIAPER_MIXED,
     DIAPER_POOP,
+    DIAPER_DIRTY,
 )
 from .coordinator import NapperDataUpdateCoordinator
 from .api import parse_json_response
@@ -50,7 +51,7 @@ SERVICE_NAMES = [
 
 # Service schemas
 LOG_DIAPER_CHANGE_SCHEMA = vol.Schema({
-    vol.Required("diaper_content"): vol.In([DIAPER_WET, DIAPER_MIXED, DIAPER_POOP]),
+    vol.Required("diaper_content"): vol.In([DIAPER_WET, DIAPER_MIXED, DIAPER_DIRTY, DIAPER_POOP]),
     vol.Optional("comment", default=""): str,
     vol.Optional("timestamp"): str,
 })
@@ -156,6 +157,8 @@ async def async_register_services(hass: HomeAssistant, coordinator: NapperDataUp
     async def log_diaper_change(call: ServiceCall) -> ServiceResponse:
         """Log a diaper change."""
         diaper_content = call.data.get("diaper_content", DIAPER_WET)
+        if diaper_content == DIAPER_POOP:
+            diaper_content = DIAPER_DIRTY
         comment = call.data.get("comment", "")
         timestamp = _get_current_timestamp(call.data.get("timestamp"))
         

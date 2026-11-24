@@ -24,6 +24,8 @@ from .const import (
     CONF_REFRESH_TOKEN,
     CONF_TOKEN_EXPIRY,
     CONF_DEVICE_ID,
+    DIAPER_DIRTY,
+    DIAPER_POOP,
 )
 from .api import parse_json_response
 
@@ -311,7 +313,7 @@ class NapperDataUpdateCoordinator(DataUpdateCoordinator):
                     last_dry_diaper = log
                 elif diaper_content == "MIXED" and last_mixed_diaper is None:
                     last_mixed_diaper = log
-                elif diaper_content == "POOP" and last_dirty_diaper is None:
+                elif diaper_content in (DIAPER_DIRTY, DIAPER_POOP) and last_dirty_diaper is None:
                     last_dirty_diaper = log
             elif category == "SOLIDS" and last_solids is None:
                 last_solids = log

@@ -99,7 +99,7 @@ All services are available under the `napper.` domain:
 
 | Service | Description |
 |---------|-------------|
-| `napper.log_diaper_change` | Log a diaper change (`diaper_content`: WET / MIXED / POOP) |
+| `napper.log_diaper_change` | Log a diaper change (`diaper_content`: WET / MIXED / DIRTY; legacy POOP is an alias for DIRTY) |
 | `napper.log_solid_food` | Log a solid food feeding |
 | `napper.log_solids` | Alias for `log_solid_food` |
 | `napper.log_sleep_start` | Log that the baby started sleeping |

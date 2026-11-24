@@ -260,7 +260,7 @@ class NapperLastMixedDiaperSensor(CoordinatorEntity, SensorEntity):
 
 
 class NapperLastDirtyDiaperSensor(CoordinatorEntity, SensorEntity):
-    """Sensor for last dirty diaper (POOP) change timestamp."""
+    """Sensor for last dirty diaper (DIRTY) change timestamp."""
 
     _attr_has_entity_name = True
     _attr_device_class = SensorDeviceClass.TIMESTAMP
